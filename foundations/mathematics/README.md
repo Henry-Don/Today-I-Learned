@@ -1,6 +1,7 @@
 # Mathematics
 
-工程分析所需的数学基础，包括三角函数、复数、线性代数、微分方程和数值方法。
+为电力系统、控制和频域分析服务的数学基础。
 
-- [三角、复数与相量](trigonometry-complex-phasors.md)
+- [三角函数与复数](trigonometry-and-complex-numbers.md)
 
+后续主题包括微分方程、线性代数与特征值、Laplace/Fourier 变换、频域分析、状态空间、离散系统、优化和概率基础。
