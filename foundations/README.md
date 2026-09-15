@@ -24,5 +24,7 @@
 ## Notes
 
 - [三角函数与复数](mathematics/trigonometry-and-complex-numbers.md)
+- [矩阵与坐标变换](mathematics/matrices-and-coordinate-transformations.md)
 - [正弦稳态与相量](electrical-engineering/sinusoidal-steady-state-and-phasors.md)
 - [复功率与 BESS PCS 的 P-Q 能力](electrical-engineering/complex-power.md)
+- [Clarke 与 Park 坐标变换](electrical-engineering/clarke-and-park-transformations.md)

@@ -32,9 +32,12 @@
 ## Current Notes
 
 - [三角函数与复数](foundations/mathematics/trigonometry-and-complex-numbers.md)
+- [矩阵与坐标变换](foundations/mathematics/matrices-and-coordinate-transformations.md)
 - [正弦稳态与相量](foundations/electrical-engineering/sinusoidal-steady-state-and-phasors.md)
 - [复功率与 BESS PCS 的 P-Q 能力](foundations/electrical-engineering/complex-power.md)
+- [Clarke 与 Park 坐标变换](foundations/electrical-engineering/clarke-and-park-transformations.md)
 - [2026-W37：三角、复数、相量与复功率](weekly/2026/2026-week-37.md)
+- [2026-W38：矩阵与 Clarke/Park 坐标变换](weekly/2026/2026-week-38.md)
 
 ## Repository Structure
 
