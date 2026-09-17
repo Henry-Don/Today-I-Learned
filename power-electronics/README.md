@@ -16,7 +16,8 @@
 
 - PWM 与 SVPWM
 - [abc、αβ 与 dq 坐标变换](../foundations/electrical-engineering/clarke-and-park-transformations.md)
-- 电流内环、P/Q 外环和 DC-link 外环
+- [并网变流器电流动态](converter-current-dynamics.md)
+- P/Q 外环和 DC-link 外环
 - 电压控制与有源阻尼
 - 采样、数字时延和 PWM 时延
 - 限幅、饱和与 anti-windup

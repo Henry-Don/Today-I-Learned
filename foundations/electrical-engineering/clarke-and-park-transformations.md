@@ -598,5 +598,6 @@ $$
 - [三角函数与复数](../mathematics/trigonometry-and-complex-numbers.md)
 - [正弦稳态与相量](sinusoidal-steady-state-and-phasors.md)
 - [复功率与 BESS PCS 的 P-Q 能力](complex-power.md)
+- [并网变流器电流动态](../../power-electronics/converter-current-dynamics.md)
 - [Power Electronics](../../power-electronics/README.md)
 - [IBR and Grid Integration](../../ibr-grid-integration/README.md)
