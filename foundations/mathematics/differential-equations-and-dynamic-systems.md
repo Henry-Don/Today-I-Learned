@@ -487,6 +487,8 @@ $$
 ## 19. 相关笔记
 
 - [矩阵与坐标变换](matrices-and-coordinate-transformations.md)
+- [Laplace 变换与传递函数](laplace-transform-and-transfer-functions.md)
+- [极点、零点、带宽与稳态误差](../control/poles-zeros-bandwidth-and-steady-state-error.md)
 - [并网变流器电流动态](../../power-electronics/converter-current-dynamics.md)
 - [Clarke 与 Park 坐标变换](../electrical-engineering/clarke-and-park-transformations.md)
 - [正弦稳态与相量](../electrical-engineering/sinusoidal-steady-state-and-phasors.md)

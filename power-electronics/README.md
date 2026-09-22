@@ -17,6 +17,7 @@
 - PWM 与 SVPWM
 - [abc、αβ 与 dq 坐标变换](../foundations/electrical-engineering/clarke-and-park-transformations.md)
 - [并网变流器电流动态](converter-current-dynamics.md)
+- [极点、零点、带宽与稳态误差](../foundations/control/poles-zeros-bandwidth-and-steady-state-error.md)
 - P/Q 外环和 DC-link 外环
 - 电压控制与有源阻尼
 - 采样、数字时延和 PWM 时延

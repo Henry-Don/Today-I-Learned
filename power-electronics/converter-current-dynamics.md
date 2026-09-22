@@ -614,6 +614,8 @@ $$
 ## 20. 相关笔记
 
 - [微分方程与动态系统基础](../foundations/mathematics/differential-equations-and-dynamic-systems.md)
+- [Laplace 变换与传递函数](../foundations/mathematics/laplace-transform-and-transfer-functions.md)
+- [极点、零点、带宽与稳态误差](../foundations/control/poles-zeros-bandwidth-and-steady-state-error.md)
 - [Clarke 与 Park 坐标变换](../foundations/electrical-engineering/clarke-and-park-transformations.md)
 - [复功率与 BESS PCS 的 P-Q 能力](../foundations/electrical-engineering/complex-power.md)
 - [IBR and Grid Integration](../ibr-grid-integration/README.md)
