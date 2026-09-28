@@ -155,6 +155,32 @@ $$
 
 因此，$\underline{V}\underline{I}^{*}$ 不随公共参考系旋转而变化。复功率依赖电压与电流之间的相对关系，而不是坐标系的任意选择。
 
+这个不变性也说明其他乘法为何不作为标准复功率：
+
+- $\underline V\underline I$ 的相角是 $\theta_V+\theta_I$，公共参考旋转 $\alpha$ 后会额外增加 $2\alpha$；
+- $\underline V^*\underline I^*$ 的相角是 $-(\theta_V+\theta_I)$，同样依赖人为选取的绝对参考角；
+- $\underline V^*\underline I=(\underline V\underline I^*)^*=P-jQ$，仍包含相同功率信息，但在常见被动符号约定下把无功项的符号反了过来。
+
+因此，标准定义：
+
+$$
+\boxed{
+\underline S=\underline V\underline I^*=P+jQ
+}
+$$
+
+既提取正确的相位差，也与常用的 $P/Q$ 符号约定一致。
+
+这里的复功率是电路层面的功率记账方式，不表示空间中还存在一股“虚数能流”。更底层的电磁场能流由 Poynting vector 描述：
+
+$$
+\mathbf S_{\mathrm{Poynting}}
+=
+\mathbf E\times\mathbf H
+$$
+
+两者相关，但属于不同描述层级。
+
 ## 5. 直角坐标形式
 
 设：
@@ -302,7 +328,9 @@ $$
 2. **电流实部永远是有功电流，虚部永远是无功电流。** 只有在电压对齐实轴等特定参考系中才能直接对应。
 3. **有功等于实部乘实部，无功等于虚部乘虚部。** 一般式应使用 $P=V_rI_r+V_iI_i$ 和 $Q=V_iI_r-V_rI_i$。
 4. **不带共轭的乘积就能表示复功率。** $\underline{V}\underline{I}^{*}$ 才能得到参考无关的电压与电流相位差。
-5. **额定 MVA 减去 MW 就是剩余 MVAr。** 理想能力边界按平方关系计算，实际 PCS 还受多重运行限制。
+5. **$\underline V^*\underline I$ 完全没有物理信息。** 它等于 $P-jQ$，只是与标准约定相比反转了无功符号。
+6. **复功率的虚部是一股独立的虚数能流。** 复功率是电路层面的表示，电磁场能流应使用 Poynting vector 描述。
+7. **额定 MVA 减去 MW 就是剩余 MVAr。** 理想能力边界按平方关系计算，实际 PCS 还受多重运行限制。
 
 ## 10. 相关笔记
 
