@@ -40,9 +40,12 @@
 - [复功率与 BESS PCS 的 P-Q 能力](foundations/electrical-engineering/complex-power.md)
 - [Clarke 与 Park 坐标变换](foundations/electrical-engineering/clarke-and-park-transformations.md)
 - [并网变流器电流动态](power-electronics/converter-current-dynamics.md)
+- [对称分量、零序与接地](power-systems/symmetrical-components-zero-sequence-and-grounding.md)
+- [PLL 与 SRF-PLL](ibr-grid-integration/pll-and-srf-pll.md)
 - [2026-W37：三角、复数、相量与复功率](weekly/2026/2026-week-37.md)
 - [2026-W38：坐标变换与变流器电流动态](weekly/2026/2026-week-38.md)
 - [2026-W39：Laplace、极点零点与 PI 基础](weekly/2026/2026-week-39.md)
+- [2026-W40：三角复数、坐标变换与并网控制回顾](weekly/2026/2026-week-40.md)
 
 ## Repository Structure
 

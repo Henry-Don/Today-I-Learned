@@ -5,7 +5,7 @@
 ## Grid Following
 
 - GFL 为何依赖 PLL
-- SRF-PLL、PLL 带宽与弱电网交互
+- [PLL、SRF-PLL 与 PCC 电压反馈](pll-and-srf-pll.md)
 - dq 电流控制、P/Q 与 DC-link 外环
 - 电流源外特性、限流和故障恢复
 

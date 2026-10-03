@@ -2,6 +2,10 @@
 
 这一层建立电网分析的核心底座，重点是理解模型假设、结果可信度及何时需要升级分析方法。
 
+## Current Notes
+
+- [对称分量、零序与接地](symmetrical-components-zero-sequence-and-grounding.md)
+
 ## Study Scope
 
 - 标幺值与系统基准

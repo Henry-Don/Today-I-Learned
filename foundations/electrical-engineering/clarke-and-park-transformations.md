@@ -313,6 +313,8 @@ $$
 
 当参考角与电压向量对齐时，$\delta=0$，所以 $v_q=0$。SRF-PLL 正是利用这一关系调节参考角，使旋转坐标系逐渐与电网电压向量对齐。若系统采用相反的 q 轴约定，误差信号符号也会相反。
 
+小角度下 $v_q\approx V\delta$，因此 q 轴电压可以作为相位误差信号。锁相还应满足预期的正向对齐，即 $v_d>0$；单独 $v_q=0$ 也可能对应反向的 $180^\circ$ 对齐。完整的反馈链和适用边界见 [PLL 与 SRF-PLL](../../ibr-grid-integration/pll-and-srf-pll.md)。
+
 ## 9. Park 逆变换
 
 由于 Park 矩阵是纯旋转矩阵：
@@ -369,7 +371,7 @@ v_\beta
 \end{bmatrix}
 $$
 
-这不表示任意 $2\times3$ 矩阵都有普通逆，而是利用了输入的平衡约束。
+这不表示任意 $2\times3$ 矩阵都有普通逆，而是利用了输入的无零序约束。平衡正序是常用例子；含负序但仍无零序的不平衡三相，也可以由二维 Clarke 无损恢复。
 
 ## 11. 不平衡与零序分量
 
@@ -428,7 +430,37 @@ v_0
 \end{bmatrix}
 $$
 
-理想平衡三相三线系统通常有 $i_a+i_b+i_c=0$，所以可只使用 $\alpha\beta$。三相四线系统、不平衡故障、接地问题以及共模或零序控制中，不能随意丢弃 $v_0$ 或 $i_0$。
+在没有中性线、接地或寄生公共回流通道的理想三线端口，KCL 给出 $i_a+i_b+i_c=0$；这并不要求电流必须平衡。三相四线、接地故障和共模研究中，则应根据实际回路判断是否需要 $v_0$、$i_0$，不能预先丢弃。
+
+### 11.1 不平衡不等于零序
+
+正序与负序各自都满足三相之和为零，零序才是三相相同的公共分量。因此：
+
+- 不平衡可能只含正序与负序，仍可使用二维 $\alpha\beta$；
+- 不平衡且存在零序时，需要 $\alpha\beta0$；
+- $i_0=0$ 不自动推出相对地电压的 $v_0=0$，电压与电流必须分别判断。
+
+在完整变换后，Park 只旋转 $\alpha\beta$ 平面，零序保持为独立坐标，形成 $dq0$。序分量、回流路径和故障的关系见 [对称分量、零序与接地](../../power-systems/symmetrical-components-zero-sequence-and-grounding.md)。
+
+### 11.2 负序在正序 dq 中仍然变化
+
+基波空间矢量可写为：
+
+$$
+\underline v_{\alpha\beta}
+=V^+e^{j(\omega t+\phi_+)}
++V^-e^{j(-\omega t+\phi_-)}
+$$
+
+在以 $+\omega$ 旋转的 dq 中：
+
+$$
+\underline v_{dq}
+=V^+e^{j\phi_+}
++V^-e^{j(-2\omega t+\phi_-)}
+$$
+
+正序变成常量，负序仍表现为二倍频振荡。因此“稳态 AC 在 dq 中变 DC”指与坐标系同步的分量；一个旋转坐标系不能同时让正序和负序基波都变成常量。
 
 ## 12. Clarke 与 Park 的复合
 
@@ -566,6 +598,24 @@ $$
 
 而无功与 $v_di_q$ 的具体正负号取决于 q 轴和功率方向约定。工程中不能脱离控制模型直接套用“$i_d$ 控有功、$i_q$ 控无功”的符号关系。
 
+### 14.1 abc、αβ 与 dq 的使用场景
+
+| 表示 | 坐标系 | 常见任务 |
+|---|---|---|
+| abc | 三相端口 | EMT 原始波形、相别故障、开关波形、逐相限流与保护 |
+| $\alpha\beta$ / $\alpha\beta0$ | 静止坐标 | 空间矢量、SVPWM、PR 控制、序分量提取、瞬时功率 |
+| dq / dq0 | 旋转坐标 | PI 电流内环、P/Q 和 DC-link 外环、PLL、dq 小信号与阻抗模型 |
+
+坐标变换本身不会决定模型是 RMS 还是 EMT；瞬时 EMT 方程也可在 dq 中求解。相别差异、零序、负序和谐波是否被保留，取决于模型假设。
+
+### 14.2 从 dq 表示到电流闭环
+
+典型电流环把 $i_d^*-i_d$、$i_q^*-i_q$ 送入 PI，结合电网电压前馈和交叉项补偿得到 $v_{c,d}^*,v_{c,q}^*$，再通过逆变换和调制生成实际变流器电压。电压推动电流状态变化，电流测量再反馈到控制器。
+
+P/Q、PCC 电压和 DC-link 电压外环通常生成电流参考；电流限制与饱和约束贯穿这条链。方程、补偿策略和各控制目标统一放在 [并网变流器电流动态](../../power-electronics/converter-current-dynamics.md) 中。
+
+GFL 通常由 PLL 提供 dq 参考角；GFM 的控制角通常来自内部振荡器或功率同步控制。dq 是表示方法，并不自动意味着控制器依赖 PLL。
+
 ## 15. Park 是时变矩阵
 
 若 $\theta=\theta(t)$，则 $P=P(t)$。对：
@@ -640,5 +690,7 @@ $$
 - [正弦稳态与相量](sinusoidal-steady-state-and-phasors.md)
 - [复功率与 BESS PCS 的 P-Q 能力](complex-power.md)
 - [并网变流器电流动态](../../power-electronics/converter-current-dynamics.md)
+- [对称分量、零序与接地](../../power-systems/symmetrical-components-zero-sequence-and-grounding.md)
+- [PLL 与 SRF-PLL](../../ibr-grid-integration/pll-and-srf-pll.md)
 - [Power Electronics](../../power-electronics/README.md)
 - [IBR and Grid Integration](../../ibr-grid-integration/README.md)

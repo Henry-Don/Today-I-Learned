@@ -48,6 +48,8 @@ $$
 \frac{v_c-v_g-Ri}{L}
 $$
 
+这里的 $v_g$ 表示所选 RL 支路电网侧端口的实际电压；若该端口就是 PCC，则可记为 $v_{\mathrm{PCC}}$。它不能同时被当成电网阻抗后方完全刚性的远端理想电源电压。后文用 $E_g$ 单独表示远端 Thevenin 电源。
+
 定义净电感电压：
 
 $$
@@ -534,6 +536,28 @@ $$
 
 解耦项的正负号不是可以脱离 convention 背诵的固定公式。若 Park 定义、q 轴方向、电压方向或电流正方向改变，必须重新推导。
 
+### 15.1 两种电阻处理方式对应不同 plant
+
+上述结构也补偿了 $Ri_d,Ri_q$，理想每轴 plant 因而为 $1/(Ls)$。另一种常用结构仅补偿电网电压与旋转交叉项：
+
+$$
+v_{c,d}^*=v_{g,d}-\omega Li_q+u_d
+$$
+
+$$
+v_{c,q}^*=v_{g,q}+\omega Li_d+u_q
+$$
+
+这时每轴保留：
+
+$$
+L\dot i_d+Ri_d=u_d,
+\qquad
+L\dot i_q+Ri_q=u_q
+$$
+
+对应 plant 为 $1/(Ls+R)$。已有的 [RL 电流环 PI 设计](../foundations/control/poles-zeros-bandwidth-and-steady-state-error.md) 中 $K_p=L\omega_c$、$K_i=R\omega_c$ 使用的正是保留 $R$ 的 plant。更改补偿结构后，必须重新检查 PI 与闭环模型，不能把两种 plant 混用。
+
 ## 16. 从电流动态到 P/Q 控制
 
 当 d 轴与电网电压向量对齐时：
@@ -548,7 +572,25 @@ $$
 p=\frac{3}{2}v_{g,d}i_d
 $$
 
-无功与 $i_q$ 的具体正负关系取决于功率方向和 q 轴约定。增加有功指令的典型因果链为：
+若取电流由变流器流向电网为正，定义向电网送出的 P/Q 为正，并使用本文 Park 约定，则无零序正弦条件下：
+
+$$
+P=\frac{3}{2}(v_{g,d}i_d+v_{g,q}i_q)
+$$
+
+$$
+Q=\frac{3}{2}(v_{g,q}i_d-v_{g,d}i_q)
+$$
+
+在 $v_{g,q}=0$ 时：
+
+$$
+P=\frac{3}{2}v_{g,d}i_d,
+\qquad
+Q=-\frac{3}{2}v_{g,d}i_q
+$$
+
+这里 dq 幅值对应相量的峰值尺度，不能再把 RMS 额定值直接代入 $3/2$ 公式。改变功率方向、Park 或 q 轴约定时，必须同步改变符号。增加有功指令的典型因果链为：
 
 $$
 P^*
@@ -566,14 +608,56 @@ $$
 
 因此外环带宽通常应显著低于电流内环，才能在设计上形成清晰的时间尺度分离。
 
+### 16.1 常见控制目标与电流能力
+
+| 控制目标 | 典型作用路径 | 主要条件 |
+|---|---|---|
+| $P\to P^*$ | 有功外环生成 $i_d^*$ | 电压对齐、功率方向与单位一致 |
+| $Q\to Q^*$ | 无功外环生成 $i_q^*$ | 无功符号与变换一致 |
+| $V_{\mathrm{PCC}}\to V_{\mathrm{PCC}}^*$ | 电压外环调节无功电流或无功指令 | 响应受电网阻抗及控制模式影响 |
+| $V_{dc}\to V_{dc}^*$ | DC-link 外环调节有功电流 | 恢复 AC/DC 功率平衡，方向由充放电工况决定 |
+| 电流限制 | 约束 $i_d^*,i_q^*$ 并分配优先级 | 需要配合电压限幅和 anti-windup |
+| 动态阻尼 | 调整环路与阻尼控制 | 同时检查裕度、延迟和电网交互 |
+
+P/Q 与电压外环是不同运行模式下的选择，不能把相互竞争的外环都当成独立硬约束。在高 X/R 网络中，无功对电压的影响通常更突出；一般阻抗下，有功与无功都可能影响 PCC 电压。
+
+对平衡、无零序、amplitude-invariant 的电流表示，常用限制为：
+
+$$
+\sqrt{i_d^2+i_q^2}\le I_{\max}
+$$
+
+其中 $I_{\max}$ 应使用与 dq 相同的峰值尺度。该圆形约束对平衡基波对应逐相峰值限制；不平衡时还必须检查正负序叠加后的实际每相电流，四线系统还需包含零序。故障电压降低时，维持原 P/Q 所需电流可能超出能力，需要明确有功与无功优先策略。
+
 ## 17. 弱电网为什么使问题更复杂
 
-在强电网近似中，$v_g$ 常被视为刚性扰动。弱电网中，变流器电流流过电网阻抗会反过来改变并网点电压：
+### 17.1 PCC 电压与远端电源电压
+
+PCC 是 Point of Common Coupling，即公共耦合点。$V_{\mathrm{PCC}}$ 是该点的实际测量电压；具体使用相电压、线电压、RMS 或空间矢量幅值时，都应明确测量定义。
+
+~~~text
+Converter ── filter / transformer ── PCC ── Zg ── Eg
+                                    → I
+~~~
+
+在电流由 PCC 流向远端电网为正的单频 Thevenin 等值中：
+
+$$
+\underline V_{\mathrm{PCC}}
+=
+\underline E_g+Z_g\underline I
+$$
+
+改变电流正方向后压降符号随之改变。核心是实际 PCC 电压包含电流经过电网阻抗产生的电压变化，一般不等于远端电源电压。PCC 与项目中的 POI（Point of Interconnection）是否重合，应按具体接线与项目定义确认。
+
+### 17.2 PLL 与电流的闭环交互
+
+在强电网近似中，$v_{\mathrm{PCC}}$ 常被视为刚性扰动。电网阻抗较大时，电流变化会明显改变 PCC 电压，其幅值与相角又进入 PLL 和控制器：
 
 $$
 i
 \rightarrow
-v_{\mathrm{POI}}
+v_{\mathrm{PCC}}
 \rightarrow
 \text{PLL and control}
 \rightarrow
@@ -589,6 +673,8 @@ $$
 - 变流器—电网控制交互；
 - GFL/GFM 小信号模型；
 - 故障限流与恢复。
+
+这也解释了为什么 PLL 属于变流器—电网动态模型的一部分。具体角度反馈结构见 [PLL 与 SRF-PLL](../ibr-grid-integration/pll-and-srf-pll.md)。
 
 ## 18. 常见误区
 
@@ -618,4 +704,6 @@ $$
 - [极点、零点、带宽与稳态误差](../foundations/control/poles-zeros-bandwidth-and-steady-state-error.md)
 - [Clarke 与 Park 坐标变换](../foundations/electrical-engineering/clarke-and-park-transformations.md)
 - [复功率与 BESS PCS 的 P-Q 能力](../foundations/electrical-engineering/complex-power.md)
+- [PLL 与 SRF-PLL](../ibr-grid-integration/pll-and-srf-pll.md)
+- [对称分量、零序与接地](../power-systems/symmetrical-components-zero-sequence-and-grounding.md)
 - [IBR and Grid Integration](../ibr-grid-integration/README.md)
