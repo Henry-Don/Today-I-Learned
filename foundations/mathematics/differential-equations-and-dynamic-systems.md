@@ -506,6 +506,14 @@ $$
 
 Forward Euler 只是最简单的方法。步长过大可能造成明显误差，甚至让连续时间稳定的系统在离散计算中表现为数值不稳定。
 
+### 15.1 Euler 与 EMT 分别回答什么问题
+
+Euler 是数值积分方法，回答“如何从当前导数推进到下一步状态”。EMT（Electromagnetic Transients）是电磁暂态建模与仿真层级，回答“保留哪些电气动态、是否直接求解瞬时电压和电流”。
+
+EMT 模型通常同时包含储能元件的微分方程与网络 KCL/KVL 的代数约束。求解器可以使用梯形法、Backward Euler 或其他积分方法，并不必然采用 Forward Euler。例如 [PSCAD/EMTDC 文档](https://www.pscad.com/webhelp-v502-ol/PSCAD/Application_Project_Options/Project_Settings/Network.htm)说明了其网络求解中的梯形积分及数值振荡问题。
+
+因此，使用 Euler 推进一个 RL 模型可以演示瞬时动态，但“用了 Euler”本身既不代表模型已经完整，也不决定它是不是 EMT。应分别说明模型范围、积分方法、时间步长与求解误差。
+
 ## 16. 控制器也可以有状态
 
 PI 控制器为：
