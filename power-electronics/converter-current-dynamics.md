@@ -449,6 +449,24 @@ $$
 
 PI current controller 是控制算法模块，通常运行在 DSP、MCU 或 FPGA 等控制平台上。完整变流器还包含 DC-link、功率桥、驱动、测量、滤波、调制、保护和热管理，不能把一个 PI 框直接等同于整台 converter。
 
+### 9.1 Plant 的边界决定 PI 所见动态
+
+回顾补充：Plant 指被控制的物理过程，不是“整个电网”的专有名称。净电压 $u=v_c-v_g$ 到电流的 RL 通道为 $1/(Ls+R)$；controller、plant 与反馈共同组成闭环系统。把 PWM、测量或电网状态纳入模型时，应明确新增动态属于哪个框。
+
+本节含 $Ri$ 状态补偿的理想结构，使 PI 所见对象近似成为 $1/(Ls)$，不是未经补偿的 $1/(Ls+R)$。取积分状态 $\dot\xi=i^*-i$，该补偿结构的参考到电流通道为：
+
+$$
+T(s)=\frac{K_p s+K_i}{Ls^2+K_p s+K_i}.
+$$
+
+若只使用 $v_g$ 前馈、不补偿 $Ri$，则：
+
+$$
+T(s)=\frac{K_p s+K_i}{Ls^2+(R+K_p)s+K_i}.
+$$
+
+后者才对应经典 $K_i/K_p=R/L$ 的 RL 极点匹配。两种结构都包含电感电流和 PI 积分状态，通常是二阶；参数设计不能跨结构直接套用。完整推导、精确相消后的最简阶数与带宽条件见 [理想 RL 电流环 PI 起点](../foundations/control/poles-zeros-bandwidth-and-steady-state-error.md#26-理想-rl-电流环-pi-起点)。
+
 ## 10. 从期望电流斜率反解电压
 
 若希望电流按指定斜率变化：

@@ -46,7 +46,7 @@
 - [2026-W38：坐标变换与变流器电流动态](weekly/2026/2026-week-38.md)
 - [2026-W39：Laplace、极点零点与 PI 基础](weekly/2026/2026-week-39.md)
 - [2026-W40：三角复数、坐标变换与并网控制回顾](weekly/2026/2026-week-40.md)
-- [2026-W41：并网接口、滤波与功率分担回顾](weekly/2026/2026-week-41.md)
+- [2026-W41：并网接口、频率响应与 PI 回顾](weekly/2026/2026-week-41.md)
 
 ## Repository Structure
 

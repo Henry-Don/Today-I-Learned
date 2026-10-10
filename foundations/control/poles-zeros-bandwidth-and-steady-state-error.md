@@ -313,6 +313,48 @@ $$
 -\tan^{-1}(\omega\tau)
 $$
 
+该相位公式假设 $K>0$、$\tau>0$；负增益还要计入其相角。频率响应针对稳定系统的受迫正弦稳态，不包含所有初始暂态，也不会改变原极点。具体的 RL 暂态与稳态拆分见 [Laplace 笔记](../mathematics/laplace-transform-and-transfer-functions.md#151-自然暂态与受迫正弦稳态)。
+
+### 11.1 RL 的低频与高频要相对特征频率判断
+
+取 $L,R>0$：
+
+$$
+G(j\omega)=\frac{1}{R+j\omega L},
+\qquad
+\omega_p=\frac{R}{L}.
+$$
+
+幅值与相位同时变化：
+
+$$
+|G(j\omega)|=\frac{1}{\sqrt{R^2+(\omega L)^2}},
+\qquad
+\angle G(j\omega)=-\arctan\frac{\omega L}{R}.
+$$
+
+- $\omega\ll\omega_p$：幅值约为 $1/R$，相位接近 $0^\circ$。
+- $\omega=\omega_p$：幅值为 DC 增益的 $1/\sqrt2$，相位为 $-45^\circ$。
+- $\omega\gg\omega_p$：幅值约为 $1/(\omega L)$，相位趋近 $-90^\circ$。
+
+所以“低频/高频”不是固定的 Hz 分界，而是相对于所选模型的特征频率。例如 $L=0.01\ \mathrm H$、$R=0.1\ \Omega$，输入电压峰值为 1 V：
+
+| 激励角频率 | 稳态电流峰值 | 电流相位 |
+| --- | --- | --- |
+| $1\ \mathrm{rad/s}$ | 约 9.95 A | 约 $-5.7^\circ$ |
+| $10\ \mathrm{rad/s}$ | 约 7.07 A | $-45^\circ$ |
+| $100\ \mathrm{rad/s}$ | 约 0.995 A | 约 $-84.3^\circ$ |
+
+电压直接决定的是 $\dot i$，而非瞬间指定 $i$；激励变化快时，电流幅值更小、相位更滞后。这是输入电压与输出电流之间的相位关系，不等同于固定时间延迟。对单一频率，等效时间偏移为 $|\phi|/\omega$（$\phi$ 用弧度），一般随频率变化。
+
+### 11.2 滤波、跟踪与稳定裕度是三个问题
+
+1. **滤波：** 不希望传递的 PWM 高频电压成分产生较小的电流纹波，幅值衰减是目标。LCL 还含谐振，不能只看远离谐振的高频渐近线。
+2. **跟踪：** 对希望电流快速跟随的参考，应看参考到电流的闭环通道。$v_L=L\dot i$ 要求足够的电压裕量；DC-link 与调制限幅可能使快指令无法实现。
+3. **稳定裕度：** 应看完整环路 $L_{\mathrm{loop}}(j\omega)$，包括控制器、plant、测量、滤波及采样/PWM 延迟。裸 RL 的高频相位接近 $-90^\circ$，不足以单独推出闭环失稳。
+
+对常见单一增益交越、满足相应开环条件的负反馈环路，相位裕度可读为 $180^\circ+\angle L_{\mathrm{loop}}(j\omega_c)$。交越附近总相位越接近 $-180^\circ$，裕度越小；多重交越或开环不稳定等情况，还需结合完整 Nyquist 判据。
+
 ## 12. 一阶系统带宽
 
 对低通系统，经典 $-3\ \mathrm{dB}$ 带宽定义为：
@@ -540,7 +582,13 @@ $$
 
 ## 19. Unity Negative Feedback
 
-设 plant 为 $G(s)$，controller 为 $C(s)$。单位负反馈满足：
+设 plant 为 $G(s)$，controller 为 $C(s)$。
+
+这里 $R(s)$ 表示参考的 Laplace 变换，不是电阻 $R$；$L_{\mathrm{loop}}(s)$ 表示环路传递函数，不是电感 $L$。
+
+Plant 是选定边界内的被控过程，不专指整个电网。对电流控制的净电压输入 $u=v_c-v_g$，RL 动态是 plant；PI 根据 $e=i^*-i$ 生成电压控制量。controller、plant 与 feedback 一起构成闭环系统，PI 并没有被排除在系统之外。PWM、测量和电网扰动归入哪个框，需要按实际模型明说。
+
+单位负反馈满足：
 
 $$
 Y(s)
@@ -583,7 +631,16 @@ $$
 E(s)=R(s)-Y(s)
 $$
 
-所以：
+由前向通道 $Y(s)=C(s)G(s)E(s)$，逐步代入可得：
+
+$$
+\begin{aligned}
+E(s)&=R(s)-C(s)G(s)E(s),\\
+E(s)[1+C(s)G(s)]&=R(s).
+\end{aligned}
+$$
+
+因此：
 
 $$
 \frac{E(s)}{R(s)}
@@ -604,6 +661,17 @@ $$
 $$
 T(s)+S(s)=1
 $$
+
+这也可直接由两个已推导的通道验证：
+
+$$
+1-T(s)
+=1-\frac{C(s)G(s)}{1+C(s)G(s)}
+=\frac{1}{1+C(s)G(s)}
+=S(s).
+$$
+
+$S(s)$ 的大写 S 与复频率变量 $s$ 不同。这里把 $S$ 识别为 $E/R=1-T$，依赖单位负反馈及 $E=R-Y$ 的约定。非单位反馈 $H(s)$ 下，比较节点误差为 $E=R-HY$，应重新推导，而不能把参考到实际输出的通道机械代入 $1-T$。
 
 在稳定和模型适用的前提下，低频环路增益越大，低频跟踪误差与某些扰动影响通常越小。但不能在所有频率同时让 $S$ 任意小，实际设计仍受稳定性和鲁棒性限制。
 
@@ -737,6 +805,18 @@ $$
 z=-\frac{K_i}{K_p}
 $$
 
+上述形式取 $K_p\ne0$；真正含积分动态的 PI 还要求 $K_i\ne0$。若 $K_i=0$，就退化为无动态状态的 P 控制。
+
+单独理想 PI 可由一个积分状态实现：
+
+$$
+\dot\xi=e,
+\qquad
+u_{\mathrm{PI}}=K_p e+K_i\xi.
+$$
+
+因此它是一阶控制器，带有比例直通项；不能因为“一阶”就把它当作 $K/(\tau s+1)$ 那样的严格真有理低通。
+
 调整 $K_p$ 和 $K_i$ 同时会：
 
 - 改变环路增益；
@@ -759,6 +839,16 @@ plant 极点为：
 $$
 p_p=-\frac{R}{L}
 $$
+
+回顾补充：在无额外 $Ri$ 状态补偿、理想净电压执行及单位负反馈下，任意 PI 参数对应：
+
+$$
+T(s)
+=\frac{C(s)G(s)}{1+C(s)G(s)}
+=\frac{K_p s+K_i}{Ls^2+(R+K_p)s+K_i}.
+$$
+
+电感电流与 PI 积分器通常组成两个动态状态，因此一般是二阶闭环，而不是由“PI 是一阶”推出整个闭环是一阶。对 $L,R,K_p,K_i>0$ 的这个理想模型，二阶特征多项式稳定；加入延迟等动态后需要重新判断。
 
 若选择：
 
@@ -818,13 +908,22 @@ $$
 
 这把目标闭环时间尺度直接连接到 PI 参数。
 
+精确匹配时分母可因式分解为：
+
+$$
+Ls^2+(R+K_p)s+K_i
+=L(s+R/L)(s+K_p/L).
+$$
+
+参考到电流的分子含 $s+R/L$，因此约简后为一阶。但被约去的稳定模态不意味着物理电感或积分状态消失；其他输入通道、非零初始状态与参数误差仍可能使它显现。具体状态模型见 [系统阶数小节](#321-pi-rl-闭环的两个状态)。
+
 ## 27. 理想 PI 设计的工程边界
 
 经典设计假设：
 
 - $R$、$L$ 已知且恒定；
 - plant 是单一 RL 环节；
-- 电压前馈和 dq 解耦理想；
+- 电网电压前馈和 dq 解耦理想，PI 所见对象仍为 $1/(Ls+R)$；
 - 采样、计算和 PWM 没有延迟；
 - 调制器没有饱和；
 - 不存在 LCL 共振和显著电网动态。
@@ -839,6 +938,8 @@ $$
 
 是重要的设计起点，不是完整设计终点。最终还需检查 Bode 图、相位裕度、参数不确定性、延迟、限幅和 anti-windup。
 
+若另外使用精确的 $Ri$ 状态反馈补偿，使 PI 所见 plant 变成 $1/(Ls)$，就已经换了被控对象，不能直接沿用本节的 RL 极点匹配规则。两种结构的区别见 [电流控制与前馈](../../power-electronics/converter-current-dynamics.md#9-pi-电流控制与前馈)。
+
 ## 28. Crossover Frequency 与 Closed-Loop Bandwidth
 
 增益交越频率定义于开环：
@@ -851,7 +952,7 @@ L_{\mathrm{loop}}(j\omega_c)
 1
 $$
 
-闭环带宽通常定义为：
+对具有有限非零 DC 增益的低通跟踪通道，闭环带宽通常定义为：
 
 $$
 \left|
@@ -861,16 +962,82 @@ T(j\omega_{\mathrm{BW}})
 \frac{|T(0)|}{\sqrt{2}}
 $$
 
-二者在良好设计的系统中可能数值接近，在理想一阶 PI 电流环中甚至相同，但定义并不相同：
-
-$$
-\omega_c
-\neq
-\omega_{\mathrm{BW}}
-\quad\text{by definition}
-$$
+二者可能数值接近，在理想匹配 PI 电流环中甚至相同，但定义不同。“定义不同”不意味着“数值一定不等”，应分别计算。
 
 看到“带宽”时必须确认它指 plant bandwidth、current-loop bandwidth、PLL bandwidth、outer-loop bandwidth、闭环 tracking bandwidth，还是 open-loop crossover。
+
+### 28.1 理想匹配 PI-RL 为什么数值相等
+
+取 $L,R,K_p>0$、$K_i/K_p=R/L$，且满足前节的理想假设：
+
+$$
+|L_{\mathrm{loop}}(j\omega)|=\frac{K_p}{L\omega}.
+$$
+
+令其等于 1，得到 $\omega_c=K_p/L$。再令 $a=K_p/L$，闭环 $T(s)=a/(s+a)$ 且 $T(0)=1$，所以：
+
+$$
+\frac{a}{\sqrt{a^2+\omega_{\mathrm{BW}}^2}}
+=\frac{1}{\sqrt2}
+\quad\Longrightarrow\quad
+2a^2=a^2+\omega_{\mathrm{BW}}^2.
+$$
+
+因此只在此理想匹配模型下：
+
+$$
+\omega_c=\omega_{\mathrm{BW}}=\frac{K_p}{L}.
+$$
+
+$1/\sqrt2\approx0.7071$ 是幅值比例，对应约 $-3\ \mathrm{dB}$，不是频率。不能写成 $\omega_{\mathrm{BW}}=K_p/\sqrt2$。
+
+电流误差到电压输出的物理单位为：
+
+$$
+[K_p]=\Omega,
+\qquad
+[K_i]=\Omega/\mathrm s,
+\qquad
+[L]=\mathrm H=\Omega\cdot\mathrm s.
+$$
+
+所以 $K_p/L$ 的量纲是 $\mathrm s^{-1}$，可用于角频率；$K_p/\sqrt2$ 仍为欧姆，不能作为频率。如果实际软件使用标幺量或归一化指令，还需计入对应基值与执行器增益。
+
+例如 $L=0.01\ \mathrm H$、$R=0.1\ \Omega$、$K_p=1\ \Omega$，匹配得到 $K_i=10\ \Omega/\mathrm s$：
+
+$$
+T(s)=\frac{100}{s+100},
+\qquad
+|T(j100)|=\frac{1}{\sqrt2}.
+$$
+
+于是 $\omega_c=\omega_{\mathrm{BW}}=100\ \mathrm{rad/s}$，换算为 $f=100/(2\pi)\approx15.9\ \mathrm{Hz}$，闭环时间常数为 $0.01\ \mathrm s$。
+
+### 28.2 仅用 P 控制的反例
+
+若 $C(s)=K_p$、$G(s)=1/(Ls+R)$，且 $K_p>R>0$：
+
+$$
+\frac{K_p}{\sqrt{R^2+(\omega_c L)^2}}=1
+\quad\Longrightarrow\quad
+\omega_c=\frac{\sqrt{K_p^2-R^2}}{L}.
+$$
+
+闭环为：
+
+$$
+T(s)=\frac{K_p}{Ls+R+K_p},
+\qquad
+T(0)=\frac{K_p}{R+K_p}.
+$$
+
+相对于自身 DC 增益的 $-3\ \mathrm{dB}$ 带宽是：
+
+$$
+\omega_{\mathrm{BW}}=\frac{R+K_p}{L}.
+$$
+
+同样取 $L=0.01\ \mathrm H$、$R=0.1\ \Omega$、$K_p=1\ \Omega$，二者分别约为 $99.5$ 与 $110\ \mathrm{rad/s}$，并不相等。若 $0<K_p<R$，开环幅值在 DC 已低于 1，没有正频率增益交越；这不妨碍该理想 P-RL 闭环稳定且具有有限带宽。
 
 ## 29. System Type 与稳态误差
 
@@ -941,6 +1108,34 @@ $$
 
 因此系统阶数与状态数量的对应，需要在 minimal realization 的意义下理解。
 
+### 32.1 PI-RL 闭环的两个状态
+
+对第 26 节的净电压 PI 结构，取 $e=i^*-i$、$\dot\xi=e$、$u=K_p e+K_i\xi$，可写为：
+
+$$
+\frac{d}{dt}
+\begin{bmatrix}i\\\xi\end{bmatrix}
+=
+\begin{bmatrix}
+-(R+K_p)/L&K_i/L\\
+-1&0
+\end{bmatrix}
+\begin{bmatrix}i\\\xi\end{bmatrix}
++
+\begin{bmatrix}K_p/L\\1\end{bmatrix}i^*.
+$$
+
+精确匹配后，状态矩阵的特征多项式仍有 $-R/L$ 与 $-K_p/L$ 两个根（可重合），而参考到电流的零状态最简传递函数只有一个极点。前者回答内部动态有几个状态，后者回答特定输入输出通道最少需要几个状态描述。
+
+若在 plant 净电压处加入独立扰动 $d$，则：
+
+$$
+\frac{I(s)}{D(s)}
+=\frac{s}{Ls^2+(R+K_p)s+K_i}.
+$$
+
+该通道在理想匹配时通常仍保留两个模态，说明不能把参考通道的一阶约简当成所有输入通道或初始状态响应都变为一阶。模型约简中的最小实现与极零相消可参考 [MathWorks 官方说明](https://www.mathworks.com/help/control/ref/dynamicsystem.minreal.html)。
+
 ## 33. 两个快速读式例子
 
 ### 33.1 一阶系统
@@ -1002,6 +1197,12 @@ $$
 10. **Open-loop crossover 就是 closed-loop bandwidth。** 两者定义不同。
 11. **Plant pole 就是 closed-loop pole。** 控制器会改变闭环特征方程。
 12. **Final Value Theorem 对任何系统都可使用。** 它要求最终值存在并满足极点条件。
+13. **高频只改变幅值，不改变相位。** RL 的幅值与相位都随频率变化。
+14. **高频电流滞后必然有害或导致失稳。** 应区分开关纹波滤波、参考跟踪及完整环路稳定裕度。
+15. **PI 一阶，所以 PI-RL 闭环也必然一阶。** 一般闭环有两个状态，理想相消只约简特定输入输出通道。
+16. **Plant 就是整个电网，PI 不属于系统。** Plant 是选定被控过程，PI 属于闭环系统。
+17. **$E/R=1-T$ 不需要看反馈结构。** 这里要求单位负反馈及指定的误差定义。
+18. **$1/\sqrt2$ 是带宽的频率值。** 它是幅值门槛，角频率需从相应频响方程求出。
 
 ## 35. 下一步接口
 
