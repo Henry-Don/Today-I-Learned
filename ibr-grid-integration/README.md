@@ -26,5 +26,6 @@
 - 正负序电流优先策略
 - protection-quality fault current
 - impedance-based stability
+- [频域稳定性、灵敏度与阻抗矩阵接口](frequency-domain-stability-and-impedance-interfaces.md)
 - frequency scanning
 - 多厂商控制交互

@@ -17,5 +17,6 @@
 ## Notes
 
 - [极点、零点、带宽与稳态误差](poles-zeros-bandwidth-and-steady-state-error.md)
+- [控制系统频域分析：Bode、反馈与稳定裕度](control-frequency-domain-analysis.md)
 
 数学入口见 [Laplace 变换与传递函数](../mathematics/laplace-transform-and-transfer-functions.md)。变流器 plant 和 dq 电流控制接口见 [并网变流器电流动态](../../power-electronics/converter-current-dynamics.md)。
