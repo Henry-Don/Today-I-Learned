@@ -23,7 +23,7 @@ $$
 
 本篇假设 $v_g$ 前馈准确、平均电压指令可理想执行，没有额外 $Ri$ 状态补偿，暂不计采样、PWM 时延、LCL 高阶模态和 dq 耦合。模型边界首先固定在局部电流通道，而非整个电网。
 
-如果加入精确 $Ri$ 状态补偿，PI 所见 plant 变为 $1/(Ls)$，不是本文的 $1/(Ls+R)$；两种结构的区别见 [并网变流器电流动态](converter-current-dynamics.md#91-plant-的边界决定-pi-所见动态)。
+如果加入精确 $Ri$ 状态补偿，PI 所见 plant 变为 $1/(Ls)$，不是本文的 $1/(Ls+R)$；两种结构的区别见 [并网变流器电流动态](converter-current-dynamics.md#34-plant-的边界决定-pi-所见动态)。
 
 ### 1.2 PI 控制器与两个状态
 
@@ -46,7 +46,7 @@ L_{\mathrm{loop}}(s)=\frac{K_p s+K_i}{s(Ls+R)},
 T(s)=\frac{K_p s+K_i}{Ls^2+(R+K_p)s+K_i}.
 $$
 
-一般闭环是二阶。单独 PI 是一阶且有比例直通项，不等同于标准一阶低通。具体状态模型见 [控制基础的 PI-RL 状态推导](../foundations/control/poles-zeros-bandwidth-and-steady-state-error.md#321-pi-rl-闭环的两个状态)。
+一般闭环是二阶。单独 PI 是一阶且有比例直通项，不等同于标准一阶低通。具体状态模型见 [控制基础的 PI-RL 状态推导](../foundations/control/poles-zeros-bandwidth-and-steady-state-error.md#65-pi-rl-闭环的两个状态)。
 
 ## 2. 理想匹配：从参数到频域指标
 

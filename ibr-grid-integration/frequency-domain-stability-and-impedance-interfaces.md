@@ -130,7 +130,7 @@ $$
 
 这里 $V_g=0$ 是该增量通道的外部扰动置零，不是把真实电网电压设为零。无损模型含原点与虚轴共轭极点，不是稳定一阶低通；谐振附近不能只用高频衰减解释响应。
 
-高频网侧电流衰减更强，但损耗、被动/有源阻尼、数字延迟、电流测量位置与网侧电感变化都需纳入设计。完整物理模型见 [并网变流器电流动态](../power-electronics/converter-current-dynamics.md#66-lcl-增强高频滤波并引入谐振)；工程实现可参考 [imperix LCL 有源阻尼说明](https://imperix.com/doc/implementation/active-damping-of-lcl-filters)。
+高频网侧电流衰减更强，但损耗、被动/有源阻尼、数字延迟、电流测量位置与网侧电感变化都需纳入设计。完整物理模型见 [并网变流器电流动态](../power-electronics/converter-current-dynamics.md#26-lcl-增强高频滤波并引入谐振)；工程实现可参考 [imperix LCL 有源阻尼说明](https://imperix.com/doc/implementation/active-damping-of-lcl-filters)。
 
 ### 3.2 弱电网增加了另一条反馈链
 
@@ -144,7 +144,7 @@ converter current → PCC voltage → PLL / controller
 
 此时单个一阶 RL 不再覆盖所有反馈路径。应扩大模型边界，明确电网阻抗、同步估计、电压前馈与电流控制的耦合，而非只给局部电流环报一个正 PM。
 
-相关端口定义见 [PCC 与远端源项](../power-electronics/converter-current-dynamics.md#171-pcc-电压与远端电源电压)，同步耦合见 [PLL 与 SRF-PLL](pll-and-srf-pll.md)。
+相关端口定义见 [PCC 与远端源项](../power-electronics/converter-current-dynamics.md#61-pcc-电压与远端电源电压)，同步耦合见 [PLL 与 SRF-PLL](pll-and-srf-pll.md)。
 
 ## 4. dq 导纳与矩阵回路接口
 
