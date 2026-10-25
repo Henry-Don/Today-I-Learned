@@ -444,6 +444,8 @@ $$
 
 这是一维状态空间模型，也是以后多状态小信号模型的最简单原型。
 
+多状态矩阵的尺寸、自由响应、特征值与隐藏模态，继续见 [状态空间、特征值与自然模态](../control/state-space-eigenvalues-and-modes.md)。这里保留 RL 原型，不将后续模态推导重复展开。
+
 ### 3.6 从系数理解稳定性
 
 无输入时：
@@ -616,6 +618,7 @@ $$
 
 - [矩阵与坐标变换](matrices-and-coordinate-transformations.md)
 - [Laplace 变换与传递函数](laplace-transform-and-transfer-functions.md)
+- [状态空间、特征值与自然模态](../control/state-space-eigenvalues-and-modes.md)
 - [极点、零点、带宽与稳态误差](../control/poles-zeros-bandwidth-and-steady-state-error.md)
 - [并网变流器电流动态](../../power-electronics/converter-current-dynamics.md)
 - [Clarke 与 Park 坐标变换](../electrical-engineering/clarke-and-park-transformations.md)

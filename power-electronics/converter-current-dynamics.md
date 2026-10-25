@@ -357,6 +357,8 @@ $$
 
 实际设计需要电阻或有源阻尼，并考虑网侧等效电感变化、采样和 PWM 延迟。关于网侧电流通道与谐振阻尼，可参考 [imperix 的 LCL 有源阻尼说明](https://imperix.com/doc/implementation/active-damping-of-lcl-filters)。
 
+三状态矩阵、零模态、谐振模态形状及能量稳定性推导集中放在 [LCL 谐振、模态形状与能量稳定性](lcl-resonance-modal-stability.md)；加入 PI 后需进一步构造 [增广闭环矩阵](../foundations/control/state-space-feedback-and-small-signal-stability.md#22-网侧电流-pi-反馈的具体增广矩阵)，不能只看裸滤波器的模态。
+
 ## 3. 电流跟踪、PI 与电压裕量
 
 ### 3.1 稳态条件必须结合坐标系
@@ -1000,6 +1002,7 @@ $$
 
 - [微分方程与动态系统基础](../foundations/mathematics/differential-equations-and-dynamic-systems.md)
 - [Laplace 变换与传递函数](../foundations/mathematics/laplace-transform-and-transfer-functions.md)
+- [LCL 谐振、模态形状与能量稳定性](lcl-resonance-modal-stability.md)
 - [极点、零点、带宽与稳态误差](../foundations/control/poles-zeros-bandwidth-and-steady-state-error.md)
 - [Clarke 与 Park 坐标变换](../foundations/electrical-engineering/clarke-and-park-transformations.md)
 - [复功率与 BESS PCS 的 P-Q 能力](../foundations/electrical-engineering/complex-power.md)

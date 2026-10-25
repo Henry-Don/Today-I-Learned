@@ -10,6 +10,7 @@
 - 导通损耗、开关损耗与热设计
 - 采样、驱动、隔离和硬件保护
 - DC-link 与 L/LCL 滤波器
+- [LCL 谐振、模态形状与能量稳定性](lcl-resonance-modal-stability.md)
 - EMC 基础
 
 ## Modulation and Control
@@ -18,6 +19,7 @@
 - [abc、αβ 与 dq 坐标变换](../foundations/electrical-engineering/clarke-and-park-transformations.md)
 - [并网变流器电流动态](converter-current-dynamics.md)
 - [PI 电流环频域设计、时延与级联控制](current-loop-frequency-domain-design.md)
+- [状态反馈、PI 增广与小信号稳定性](../foundations/control/state-space-feedback-and-small-signal-stability.md)
 - [极点、零点、带宽与稳态误差](../foundations/control/poles-zeros-bandwidth-and-steady-state-error.md)
 - P/Q 外环和 DC-link 外环
 - 电压控制与有源阻尼

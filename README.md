@@ -37,10 +37,13 @@
 - [Laplace 变换与传递函数](foundations/mathematics/laplace-transform-and-transfer-functions.md)
 - [极点、零点、带宽与稳态误差](foundations/control/poles-zeros-bandwidth-and-steady-state-error.md)
 - [控制系统频域分析：Bode、反馈与稳定裕度](foundations/control/control-frequency-domain-analysis.md)
+- [状态空间、特征值与自然模态](foundations/control/state-space-eigenvalues-and-modes.md)
+- [状态反馈、PI 增广与小信号稳定性](foundations/control/state-space-feedback-and-small-signal-stability.md)
 - [正弦稳态与相量](foundations/electrical-engineering/sinusoidal-steady-state-and-phasors.md)
 - [复功率与 BESS PCS 的 P-Q 能力](foundations/electrical-engineering/complex-power.md)
 - [Clarke 与 Park 坐标变换](foundations/electrical-engineering/clarke-and-park-transformations.md)
 - [并网变流器电流动态](power-electronics/converter-current-dynamics.md)
+- [LCL 谐振、模态形状与能量稳定性](power-electronics/lcl-resonance-modal-stability.md)
 - [PI 电流环频域设计、时延与级联控制](power-electronics/current-loop-frequency-domain-design.md)
 - [对称分量、零序与接地](power-systems/symmetrical-components-zero-sequence-and-grounding.md)
 - [PLL 与 SRF-PLL](ibr-grid-integration/pll-and-srf-pll.md)
@@ -51,6 +54,7 @@
 - [2026-W40：三角复数、坐标变换与并网控制回顾](weekly/2026/2026-week-40.md)
 - [2026-W41：并网接口、频率响应与 PI 回顾](weekly/2026/2026-week-41.md)
 - [2026-W42：控制频域分析、Bode 与控制环设计](weekly/2026/2026-week-42.md)
+- [2026-W43：状态空间、特征值与 LCL 模态稳定性](weekly/2026/2026-week-43.md)
 
 ## Repository Structure
 
