@@ -55,6 +55,7 @@
 - [2026-W41：并网接口、频率响应与 PI 回顾](weekly/2026/2026-week-41.md)
 - [2026-W42：控制频域分析、Bode 与控制环设计](weekly/2026/2026-week-42.md)
 - [2026-W43：状态空间、特征值与 LCL 模态稳定性](weekly/2026/2026-week-43.md)
+- [2026-W44：状态空间与自然模态回顾](weekly/2026/2026-week-44.md)
 
 ## Repository Structure
 
