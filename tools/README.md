@@ -13,3 +13,7 @@
 | LabWindows/CVI / TestStand / SPEA | 工业测试底座 | 测试序列、日志、追溯、覆盖率与部署 |
 
 辅助工具包括 LTspice、Excel/Power Query、Power BI、draw.io/Visio 及基础 CAD/EPLAN。只有在形成实际学习笔记时才为单个工具新增目录。
+
+## Notes
+
+- [Simulink 模型层级、求解器与 PI-RL 实验计划](simulink-model-levels-solvers-and-experiment-plan.md)

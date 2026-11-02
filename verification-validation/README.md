@@ -31,3 +31,7 @@
 - remote access、cybersecurity 与 data segregation
 - 权限、日志和证据链
 - 对自动化工具输出保持人工工程判断和责任边界
+
+## Notes
+
+- [仿真可信度、数值收敛与测试判据](simulation-credibility-and-test-criteria.md)

@@ -56,6 +56,13 @@
 - [2026-W42：控制频域分析、Bode 与控制环设计](weekly/2026/2026-week-42.md)
 - [2026-W43：状态空间、特征值与 LCL 模态稳定性](weekly/2026/2026-week-43.md)
 - [2026-W44：状态空间与自然模态回顾](weekly/2026/2026-week-44.md)
+- [2026-W45：数值计算、数字控制与仿真验证](weekly/2026/2026-week-45.md)
+- [数值积分、误差与求解器稳定性](foundations/mathematics/numerical-integration-and-solver-stability.md)
+- [采样、混叠与精确 ZOH 离散系统](foundations/control/sampling-zoh-and-discrete-time-systems.md)
+- [数字 PI、零阶保持与控制执行时序](power-electronics/digital-pi-zoh-and-control-timing.md)
+- [测量噪声、ADC 量化与采样抖动](foundations/electrical-engineering/measurement-noise-quantization-and-jitter.md)
+- [Simulink 模型层级、求解器与 PI-RL 实验计划](tools/simulink-model-levels-solvers-and-experiment-plan.md)
+- [仿真可信度、数值收敛与测试判据](verification-validation/simulation-credibility-and-test-criteria.md)
 
 ## Repository Structure
 

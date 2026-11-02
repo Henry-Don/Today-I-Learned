@@ -5,5 +5,6 @@
 - [正弦稳态与相量](sinusoidal-steady-state-and-phasors.md)
 - [复功率与 BESS PCS 的 P-Q 能力](complex-power.md)
 - [Clarke 与 Park 坐标变换](clarke-and-park-transformations.md)
+- [测量噪声、ADC 量化与采样抖动](measurement-noise-quantization-and-jitter.md)
 
 后续主题包括三相系统、标幺值、对称分量、变压器与线路基础模型。

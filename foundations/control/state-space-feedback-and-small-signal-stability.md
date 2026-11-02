@@ -262,3 +262,5 @@ $$
 - [连续与离散映射](#42-特征值映射与稳定区域)
 - [闭环特征值、根轨迹与劳斯判据](#13-闭环特征值根轨迹与劳斯判据)
 - [早期频域课程的三极点例子](control-frequency-domain-analysis.md#53-三极点算例提高增益如何触及临界点)
+- [后续课程：含 ZOH 输入的精确离散化](sampling-zoh-and-discrete-time-systems.md#21-从一个周期内的连续解出发)
+- [后续课程：数字 PI 与执行时序](../../power-electronics/digital-pi-zoh-and-control-timing.md)

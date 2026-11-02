@@ -19,6 +19,7 @@
 - [abc、αβ 与 dq 坐标变换](../foundations/electrical-engineering/clarke-and-park-transformations.md)
 - [并网变流器电流动态](converter-current-dynamics.md)
 - [PI 电流环频域设计、时延与级联控制](current-loop-frequency-domain-design.md)
+- [数字 PI、零阶保持与控制执行时序](digital-pi-zoh-and-control-timing.md)
 - [状态反馈、PI 增广与小信号稳定性](../foundations/control/state-space-feedback-and-small-signal-stability.md)
 - [极点、零点、带宽与稳态误差](../foundations/control/poles-zeros-bandwidth-and-steady-state-error.md)
 - P/Q 外环和 DC-link 外环

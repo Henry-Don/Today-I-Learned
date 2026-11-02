@@ -20,5 +20,7 @@
 - [控制系统频域分析：Bode、反馈与稳定裕度](control-frequency-domain-analysis.md)
 - [状态空间、特征值与自然模态](state-space-eigenvalues-and-modes.md)
 - [状态反馈、PI 增广与小信号稳定性](state-space-feedback-and-small-signal-stability.md)
+- [采样、混叠与精确 ZOH 离散系统](sampling-zoh-and-discrete-time-systems.md)
+- [数字 PI 与控制执行时序](../../power-electronics/digital-pi-zoh-and-control-timing.md)
 
 数学入口见 [Laplace 变换与传递函数](../mathematics/laplace-transform-and-transfer-functions.md)。变流器 plant 和 dq 电流控制接口见 [并网变流器电流动态](../../power-electronics/converter-current-dynamics.md)。
