@@ -57,6 +57,7 @@
 - [2026-W43：状态空间、特征值与 LCL 模态稳定性](weekly/2026/2026-week-43.md)
 - [2026-W44：状态空间与自然模态回顾](weekly/2026/2026-week-44.md)
 - [2026-W45：数值计算、数字控制与仿真验证](weekly/2026/2026-week-45.md)
+- [2026-W46：测量链、ADC 与噪声](weekly/2026/2026-week-46.md)
 - [数值积分、误差与求解器稳定性](foundations/mathematics/numerical-integration-and-solver-stability.md)
 - [采样、混叠与精确 ZOH 离散系统](foundations/control/sampling-zoh-and-discrete-time-systems.md)
 - [数字 PI、零阶保持与控制执行时序](power-electronics/digital-pi-zoh-and-control-timing.md)

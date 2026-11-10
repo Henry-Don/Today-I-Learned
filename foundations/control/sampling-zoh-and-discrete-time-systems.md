@@ -8,6 +8,8 @@
 
 均匀理想采样 $x[k]=x(kT_s)$，$f_s=1/T_s$。$T_s=100\ \mu\mathrm s$ 对应 10 kHz，不代表电流环能达到 10 kHz 带宽；带宽还受到 plant、保持、反馈、执行能力和延迟限制。
 
+电流采样要区分连续电流 $i(t)$、理想取值 $i[k]=i(kT_s)$ 和经传感器、ADC 及标定后的测量值 $i_m[k]$。例如某时刻真实电流为 10.000 A，理想样本也是 10.000 A，实际测量可以报 10.012 A。连续电流在两个采样点之间仍按电路方程演化。 [ADC 与软件标定](../electrical-engineering/measurement-noise-quantization-and-jitter.md#23-从模拟信号adc-编码到软件标定)
+
 ### 1.2 不同连续频率产生同一序列
 
 采样率为 1000 Hz 时：
