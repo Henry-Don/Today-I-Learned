@@ -4,6 +4,8 @@ BESS 是本仓库的主要应用场景。这一层关注从电池约束到电站
 
 ## Battery and BMS Foundation
 
+- [BESS 功率、可用能量与放电时长](power-energy-duration-and-soc.md)
+
 - cell、module、rack 与 container
 - SoC、SoH、SoE 和 C-rate
 - 一阶与二阶等效电路模型

@@ -5,6 +5,8 @@
 ## Current Notes
 
 - [对称分量、零序与接地](symmetrical-components-zero-sequence-and-grounding.md)
+- [三相标幺基准、阻抗换算与变压器](three-phase-per-unit-and-transformer-bases.md)
+- [PCC 戴维南等效、短路比与电压变化](pcc-grid-equivalent-and-scr.md)
 
 ## Study Scope
 

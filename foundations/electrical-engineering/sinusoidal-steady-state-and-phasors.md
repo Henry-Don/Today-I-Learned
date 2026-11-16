@@ -401,6 +401,21 @@ $$
 
 Phasor / RMS simulation 主要追踪旋转向量的幅值和相角如何缓慢变化；EMT simulation 则直接在时间域计算瞬时波形。BESS 并网和模型验证可能同时需要两者，选择取决于研究的时间尺度与现象。
 
+### 3.5 平衡三相的线电压与相电压
+
+在平衡正序下，取 A 相对等效中性参考点的 RMS 相量为 $V_{\mathrm{ph}}\angle0$，B 相为 $V_{\mathrm{ph}}\angle(-120^\circ)$。AB 线电压由两者相减得到
+
+$$
+\underline V_{ab}
+=\underline V_a-\underline V_b
+=V_{\mathrm{ph}}\left(\frac32+j\frac{\sqrt3}{2}\right)
+=\sqrt3 V_{\mathrm{ph}}\angle30^\circ.
+$$
+
+因此 $V_{LL}=\sqrt3 V_{\mathrm{ph}}$。相量计算既要保留幅值比例，也要保留 $30^\circ$ 的相角偏移。该等效相电压可用于没有引出中性线的平衡三相系统。
+
+若 PCC 的线电压 RMS 为 11 kV，相电压 RMS 为 $11/\sqrt3\approx6.35085$ kV，正弦相电压峰值为 $\sqrt2 V_{\mathrm{ph}}\approx8.98146$ kV。$\sqrt3$ 来自相差 $120^\circ$ 的相量相减，$\sqrt2$ 来自正弦峰值与有效值换算。三相电流算例见 [11 kV 并网电流与 PCS 能力圆](complex-power.md#34-11-kv-并网电流与-pcs-能力圆)。
+
 ## 4. 常见误区与关联学习
 
 ### 4.1 常见误区

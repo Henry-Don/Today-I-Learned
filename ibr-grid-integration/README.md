@@ -20,7 +20,7 @@
 
 ## Stability and Interaction
 
-- SCR、X/R 和系统强度
+- [SCR、PCC 电压与系统强度](../power-systems/pcc-grid-equivalent-and-scr.md)
 - 相位跳变、电压/频率扰动与 FRT
 - GFL/GFM 混合运行与多机交互
 - 正负序电流优先策略

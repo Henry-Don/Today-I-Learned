@@ -328,6 +328,47 @@ $$
 
 具体比例与正负号取决于 Clarke/Park 变换、功率方向和 q 轴方向等约定，不能脱离模型直接套用。这种坐标对齐正是“同相电流负责有功、正交电流负责无功”在三相变流器控制中的延伸。
 
+### 3.4 11 kV 并网电流与 PCS 能力圆
+
+对平衡正序基波，用等效相电压和线电流 RMS 相量，三相总复功率为 $3\underline V_{\mathrm{ph}}\underline I_L^*$。本算例在 PCC 取电流从 BESS 流向电网为正，并用相同电流方向计算注入 $P+jQ$。由第 1 节的单相平均功率及 $V_{\mathrm{ph}}=V_{LL}/\sqrt3$ 可得
+
+$$
+P=\sqrt3 V_{LL}I_L\cos\phi,\qquad
+Q=\sqrt3 V_{LL}I_L\sin\phi,\qquad
+I_L=\frac{\sqrt{P^2+Q^2}}{\sqrt3 V_{LL}}.
+$$
+
+$\phi$ 表示相电压与该线电流的相位差。上式中的 $V_{LL}$ 为线电压**幅值**。相量相减得到的线电压本身还带有角度偏移。若基波不平衡，按一致参考、电流方向和 RMS 相量逐相求和 $\sum_{\ell\in\{a,b,c\}}\underline V_\ell\underline I_\ell^*$。涉及谐波时应另外说明基波复功率、总有功和功率因数的定义。
+
+取 $V_{LL}=11\ \mathrm{kV}$，得到两种注入工况。
+
+| 有功（MW） | 无功（MVAr） | 视在功率（MVA） | 线电流 RMS（A） | 功率因数 |
+| --- | --- | --- | --- | --- |
+| 1 | 0 | 1 | 52.4864 | 1 |
+| 1 | +0.5 | 1.11803 | 58.6816 | 0.894427 |
+
+假设 PCS 在该电压侧的等效额定容量为 $1.25\ \mathrm{MVA}$，对应约 65.61 A 线电流。理想能力圆下，在 1 MW 时正负无功的幅值上限为 $\sqrt{1.25^2-1^2}=0.75\ \mathrm{MVAr}$。实际可用范围还取决于第 3.2 节所列条件。
+
+### 3.5 幅值不变 dq 与标幺电流参考
+
+使用幅值不变的 Clarke/Park 变换，Park 采用 $R(-\theta)$，保留上述注入电流方向。平衡正序下，dq 电压、电流分量对应相量的峰值尺度。三相复功率可写作 $\frac32(v_d+jv_q)(i_d-ji_q)$。其中 $\frac32$ 来自三相求和的 3，以及电压、电流各由 RMS 放大 $\sqrt2$ 所带来的分母 2。
+
+$$
+P=\frac32(v_di_d+v_qi_q),\qquad
+Q=\frac32(v_qi_d-v_di_q).
+$$
+
+令 $V_{dq,B}=\sqrt2 V_{\mathrm{ph},B}$、$I_{dq,B}=\sqrt2 I_B$，则 $S_B=\frac32 V_{dq,B}I_{dq,B}$。两轴用同一组峰值基准归一化后，功率式化为
+
+$$
+P_{\mathrm{pu}}=v_{d,\mathrm{pu}}i_{d,\mathrm{pu}}+v_{q,\mathrm{pu}}i_{q,\mathrm{pu}},\qquad
+Q_{\mathrm{pu}}=v_{q,\mathrm{pu}}i_{d,\mathrm{pu}}-v_{d,\mathrm{pu}}i_{q,\mathrm{pu}}.
+$$
+
+d 轴对齐 PCC 正序电压且 $v_{d,\mathrm{pu}}=1$ 时，$P_{\mathrm{pu}}=i_{d,\mathrm{pu}}$、$Q_{\mathrm{pu}}=-i_{q,\mathrm{pu}}$。在 1 MVA、11 kV 基准上，1 MW 与 0.5 MVAr 对应 $i_{d,\mathrm{pu}}^*=1$、$i_{q,\mathrm{pu}}^*=-0.5$。峰值基准约 74.23 A，所以实际 dq 电流参考约为 74.23 A、$-37.11$ A。向量模为 1.11803 pu，乘线电流 RMS 基准得 58.68 A，与三相相量计算一致。
+
+若改变 q 轴约定，应随之调整 Q 的符号。弱电网中 PCC 电压幅值和 PLL 角度会受到实际注入电流影响，因此固定 dq 参考仍需要结合网侧阻抗和电压动态分析。
+
 ## 4. 常见误区与关联学习
 
 ### 4.1 常见误区
@@ -346,3 +387,6 @@ $$
 - [正弦稳态与相量](sinusoidal-steady-state-and-phasors.md)
 - [BESS](../../bess/README.md)
 - [IBR and Grid Integration](../../ibr-grid-integration/README.md)
+- [BESS 功率、可用能量与放电时长](../../bess/power-energy-duration-and-soc.md)
+- [三相标幺基准、阻抗换算与变压器](../../power-systems/three-phase-per-unit-and-transformer-bases.md)
+- [Clarke 与 Park 的幅值不变归一化](clarke-and-park-transformations.md#46-幅值不变归一化)
